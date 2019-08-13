@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hamburger</title>
+</head>
+<body>
+    <div class="size">
+        <p><b>Какой размер гамбургера выбирите?</b></p>
+        <p><input name="hamburgerSize" type="radio" id="small" value='{"name":"Маленький", "price":50, "calories":20}' checked> Маленький (20кал) - 50 руб. </p>
+        <p><input name="hamburgerSize" type="radio" id="big" value='{"name":"Большой", "price":100, "calories":40}'> Большой (40кал) - 100 руб.</p>
+    </div>
+    <div class="stuffing">
+        <p><b>Какую начинку положить?</b></p>
+        <p><input name="hamburgerStuffing" type="checkbox" id="small" value='{"name":"Сыр", "price":10, "calories":20}' checked> Сыр (20кал) - 10 руб. </p>
+        <p><input name="hamburgerStuffing" type="checkbox" id="big" value='{"name":"Салат", "price": 20, "calories":5}'> Салат (5кал) - 20 руб.</p>
+        <p><input name="hamburgerStuffing" type="checkbox" id="big" value='{"name":"Картофель", "price":15, "calories":10}'> Картофель (10кал) - 15 руб.</p>
+    </div>
+    <div class="topping">
+        <p><b>Какой топпинг добавить?</b></p>
+        <p><input name="hamburgerTopping" type="checkbox" id="small" value='{"name":"Майонез", "price":20, "calories":5}' checked> Майонез (5кал) - 20 руб. </p>
+        <p><input name="hamburgerTopping" type="checkbox" id="big" value='{"name":"Приправа", "price":15, "calories":0}'> Приправа (0кал) - 15 руб.</p>
+    </div>
+    <p><input type="submit" value="Заказать"></p>
+
+    <div class="total"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>
