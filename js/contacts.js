@@ -22,9 +22,9 @@ class Validator {
     this.phone = phone;
     this.email = email;
     this.text = text;
-    this.regexpEmail = new RegExp('^[a-z0-9\-\_]+\@[a-z0-9\-\_]+.\\w+$', 'i');
+    this.regexpEmail = new RegExp('^[a-z0-9\-\_\\.]+\@[a-z0-9\-\_]+.\\w+$', 'i');
     this.regexpName = new RegExp('^[a-zа-я]+(\ [a-zа-я]+){0,1}$', 'i');
-    this.regexpPhone = new RegExp('^\\+(\\d){5,11}$');
+    this.regexpPhone = RegExp('^\\+\\d\\(\\d{3}\\)(\\d){3}\\-(\\d){4}$');
     this.regexpText = new RegExp('.{10,500}', 'g');
   }
 
@@ -72,3 +72,4 @@ function validateMyForm() {
     return false; 
   }
 }
+
