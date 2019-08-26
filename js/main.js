@@ -99,3 +99,4 @@ const list = new GoodsList();
 list.fetchGoods().then(() => {
   list.render();
 })
+
