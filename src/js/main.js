@@ -1,17 +1,16 @@
-const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-// const image = 'https://placehold.it/200x150';
-const cartImage = 'https://placehold.it/100x80';
+import cart from './cartComponent'
+import prod from './prodComponent'
+import finder from './findComponent'
 
 let app = new Vue ({
   el: '#app',
   data: {
-    catalogUrl: '/catalogData.json',
-    products: [],
-    filtred:[],
-    imgCatalog: 'https://placehold.it/200x150',
-    findText: '',
-    isVisibleCart: false,
-    cartItems: []
+
+  },
+  components: {
+    cart,
+    prod,
+    finder
   },
   methods: {
     fetchGoods(url) {
@@ -20,128 +19,13 @@ let app = new Vue ({
         .catch (error => {
           console.log (error)
         })
-
-    },
-    addGood (product) {
-      console.log (product.id_product)
-    },
-    filterGoods () {
-      const regexp = new RegExp(this.findText, 'i');
-      this.filtred = this.products.filter(product => regexp.test(product.product_name));
-      console.log(this.filtred);
     },
     addToCart (product) {
-      this.cartItems.push (product)
+      this.$root.$refs.cart.addGoods (product)
     }
   },
   mounted () {
-    this.fetchGoods (`${API_URL + this.catalogUrl}`)
-      .then (data => {
-         for (let el of data) {
-           this.products.push (el)
-           this.filtred.push (el)
-         }
-      })
   }
 })
 
-// class Cart {
-//   constructor(goods = []) {
-//     this.goods = goods;
-//   }
-
-//   addGoods(good) { //Добавление
-//     this.goods.push(good);
-//   }
-
-//   listGoods() {
-//     return this.goods;   
-//   }
-
-//   rmGood(name) { //Удаление
-//     if(this.__findByName(name) === -1){
-//         consile.log(`Невозможно удалить ${name}`);
-//     } else {
-//         this.goods.splice(this.__findByName(name), 1);
-//         return this.goods;
-//     }
-//   }
-
-//   __findByName(name) { //Поиск элемента в массиве
-//     let result = -1;
-//     this.goods.forEach((good, index) => {
-//         if (good.product_name == name) {
-//           result = index;
-//       }
-//     });
-//     return result;
-//   }
-
-// }
-
-// class CartItem {
-
-// }
-
-
-// function makeGETRequest(url) {
-//   let xhr;
-  
-//   return new Promise((resolve, reject) => {
-
-//     if (window.XMLHttpRequest) {
-//       xhr = new XMLHttpRequest();
-//     } else if (window.ActiveXObject) { 
-//       xhr = new ActiveXObject("Microsoft.XMLHTTP");
-//     }
-
-//     xhr.onreadystatechange = function () {
-//       if (xhr.readyState === 4) {
-//         resolve(xhr.responseText);
-//       }
-//       if (xhr.status != 200 && xhr.readyState === 4) {
-//         console.log('Не удалось загрузить список товаров');
-//         reject();
-//       }
-//     }
-
-//     xhr.open('GET', url, true);
-//     xhr.send();
-//   });
-// }
-
-// class GoodsItem {
-//   constructor(title, price) {
-//     this.title = title;
-//     this.price = price;
-//   }
-//   render() {
-//     return `<div class="goods-item"><h3>${this.title}</h3><p>${this.price}</p></div>`;
-//   }
-// }
-
-// class GoodsList {
-//   constructor() {
-//     this.goods = [];
-//   }
-//   fetchGoods() {
-//     return new Promise((resolve, reject) => {
-//       makeGETRequest(`${API_URL}/catalogData.json`).then((b) => {
-//         resolve(this.goods = JSON.parse(b));
-//       });
-//     });
-//   }
-//   render() {
-//     let listHtml = '';
-//     this.goods.forEach(good => {
-//       const goodItem = new GoodsItem(good.product_name, good.price);
-//       listHtml += goodItem.render();
-//     });
-//     document.querySelector('.goods-list').innerHTML = listHtml;
-//   }
-// }
-
-// const list = new GoodsList();
-// list.fetchGoods().then(() => {
-//   list.render();
-// })
+export default app
