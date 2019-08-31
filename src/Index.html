@@ -11,57 +11,17 @@
         <header>
             <div class="logo">E-shop</div>
             <div class="cart">
-                <form action="#" class="search-form">
-                    <input v-model.lazy="findText" type="text" class="search-field">
-                    <button @click="filterGoods ()" class="btn-search" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                <button @click="isVisibleCart = !isVisibleCart"  class="cart-button" type="button">Корзина</button>
-                <div class="cart-block invisible"></div>
+                <finder ref="finder"></finder>
+                <cart ref="cart"></cart>
             </div>
         </header>
         <main>
-            <div class="goods-list" v-for="product of filtred">
-                <div class="goods-item">
-                    <img :src="imgCatalog" alt="Some img">
-                    <div class="desc">
-                        <h3>{{ product.product_name }}</h3>
-                        <p>{{ product.price }}</p>
-                        <button @click="addToCart (product)" class="bay-btn" @click="addGood (product)">Купить</button>
-                    </div>   
-                </div>
+            <div class="goods-list">
+                <prod ref="prod"></prod>
             </div>
         </main>
-        <div v-show="isVisibleCart" id="cart">
-            <div id="cat_window">
-                <div class="cart_header">
-                    
-                    <button @click="isVisibleCart = !isVisibleCart"  class="btn-close" type="button"><i @click="isVisibleCart = !isVisibleCart" class="far fa-window-close"></i></button>
-                </div>
-                <table id="cart_table">
-                    <caption>
-                        Товары
-                    </caption>
-                    <tr>
-                        <th>Наименование</th>
-                        <th>Цена, руб.</th>
-                    </tr>
-                    <tfoot>
-                            <tr v-for="product of cartItems">
-                              <td>{{ product.product_name }}</td>
-                              <td>{{ product.price }}</td>
-                            </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
     </div>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-
 </body>
 </html>
