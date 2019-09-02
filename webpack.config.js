@@ -3,10 +3,10 @@ const MiniCssPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: {
-        main: path.resolve (__dirname, 'src', 'index.js')
+        main: path.resolve (__dirname, 'src', 'public', 'index.js')
     },
     output: {
-        path: path.resolve (__dirname, 'dist'),
+        path: path.resolve (__dirname, 'dist', 'public'),
         filename: 'bundle.js'
     },
     module:{
@@ -29,7 +29,7 @@ module.exports = {
             chunkFilename: '[id].css'
         }),
         new HtmlWebpackPlugin ({
-            template: path.resolve (__dirname, 'src', 'index.html'),
+            template: path.resolve (__dirname, 'src', 'public', 'index.html'),
             filename: 'index.html'
         })
     ]
