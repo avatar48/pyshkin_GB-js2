@@ -28,7 +28,7 @@ const prod = {
 
     },
     mounted () {
-        this.$parent.fetchGoods (this.API_URL + this.catalogUrl)
+        this.$parent.fetchGoods (`/api/products`)
         .then (data => {
            for (let el of data) {
              this.prodItems.push (el)
