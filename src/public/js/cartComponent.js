@@ -11,7 +11,7 @@ const cartItem = {
                     </div>
                     <div class="right-block">
                         <p class="product-price">{{ item.quantity * item.price }}</p>
-                        <button class="del-btn" @click="$root.$refs.cart.rmGood(item.product_name)">&times;</button>
+                        <button class="del-btn" @click="$root.$refs.cart.rmGood(item)">&times;</button>
                     </div>
                 </div>`
 }
@@ -32,32 +32,48 @@ const cart = {
     },
     methods: {
         addGoods(good) { //Добавление
-            this.cartItems.push(good);
+            let find = this.cartItems.find ( el => el.id_product === good.id_product )
+
+            if (find) {
+             this.$parent.putGoods (`/api/cart/${find.id_product}`, {quantity: 1})
+                 .then (data => {
+                     if (data.result) {
+                         find.quantity++
+                     }
+                 })
+            } else {
+                let prod = Object.assign ({quantity: 1}, good)
+                this.$parent.pushGoods (`/api/cart/`, prod)
+                 .then (data => {
+                     if (data.result) {
+                         this.cartItems.push (prod)
+                     }
+             })
+            }
         },
         listGoods() {
             return this.cartItems;   
         },
-        rmGood (name) { //Удаление
-            // console.log(name.product_name)
-            if(this.__findByName(name) === -1){
-                consile.log(`Невозможно удалить ${name}`);
+        rmGood (good) { //Удаление
+            if (good.quantity > 1) { 
+                this.$parent.deleteGoods (`/api/cart/${good.id_product}`, {quantity: -1})
+                    .then (data => {
+                        if (data.result) {
+                        good.quantity--
+                        }
+                    })
             } else {
-                this.cartItems.splice(this.__findByName(name), 1);
-                return this.cartItems;
-            }
+                this.$parent.deleteGoods (`/api/cart/${good.id_product}`)
+                .then (data => {
+                    if (data.result) {
+                        this.cartItems.splice (this.cartItems.indexOf(good), 1)
+                    }
+                })
+            };
         },
-        __findByName(name) { //Поиск элемента в массиве
-            let result = -1;
-            this.cartItems.forEach((good, index) => {
-                if (good.product_name == name) {
-                  result = index;
-              }
-            });
-            return result;
-          }
     },
     mounted () {
-        this.$parent.fetchGoods (this.API_URL + this.cartUrl)
+        this.$parent.fetchGoods (`/api/cart`)
         .then (data => {
            for (let el of data.contents) {
              this.cartItems.push (el)
