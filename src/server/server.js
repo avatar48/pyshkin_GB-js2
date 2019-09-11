@@ -19,4 +19,4 @@ app.get ('/api/products', (req, res) => {
     })
 })
 
-app.listen (3000, () => console.log ('listening at port 3000'))
+app.listen (8080, () => console.log ('listening at port 8080'))

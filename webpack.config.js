@@ -1,6 +1,8 @@
 const path = require ('path')
 const MiniCssPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 module.exports = {
     entry: {
         main: path.resolve (__dirname, 'src', 'public', 'index.js')
@@ -9,8 +11,16 @@ module.exports = {
         path: path.resolve (__dirname, 'dist', 'public'),
         filename: 'bundle.js'
     },
+    devServer: {
+        port: 8080
+    },
     module:{
         rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                exclude: '/node_modules/'
+            },
             {
                 test: /\.m?js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -31,6 +41,7 @@ module.exports = {
         new HtmlWebpackPlugin ({
             template: path.resolve (__dirname, 'src', 'public', 'index.html'),
             filename: 'index.html'
-        })
+        }),
+        new VueLoaderPlugin ()
     ]
 }
