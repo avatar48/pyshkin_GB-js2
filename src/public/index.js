@@ -1,4 +1,6 @@
-import appMain from './js/main'
-import './js/main'
-import './css/style.css'
-const app = new Vue (appMain)
+import Vue from 'vue'
+import app from './js/App.vue'
+
+new Vue ({
+    render: h => h (app)
+}).$mount ('#app')
